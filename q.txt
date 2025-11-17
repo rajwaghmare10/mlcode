@@ -1,0 +1,181 @@
+class CirculerQ{
+    int [] arr;
+    int front , rear , size, capacity;
+
+    CirculerQ(int k){
+        capacity = k;
+        arr = new int[k];
+        front = 0;
+        rear = -1;
+        size = 0;
+    } 
+
+    public boolean isfull(){
+        if(size == capacity)return true;
+        return false;
+    }
+
+    public boolean isempty(){
+        if(size == 0)return true;
+        return false;
+    }
+
+    public void enqueue(int val){
+        if(isfull()){
+            System.out.println("queue is full");
+            return;
+        }
+        rear = (rear+1)%capacity;
+        size++;
+        arr[rear] = val;
+    }
+
+    public void dequeue(){
+        if(isempty()){
+             System.out.println("there no element to dequeue");
+             return;
+        }
+        front = (front+1) % capacity;
+        size--;
+    }
+
+    public void display(){
+        if(isempty()){
+            System.out.println("queue is empty");
+            return;
+        }
+        int i = front ;
+        int count = 0;
+        while(size > count){
+            System.out.print(arr[i]+",");
+            i = (i+1)%capacity;
+            count++;
+        }
+        System.out.println();
+
+    }
+
+    public static void main(String[] args) {
+        CirculerQ q = new CirculerQ(5);
+        q.display();
+        q.enqueue(10);
+        q.display();
+        q.dequeue();
+        q.dequeue();
+        q.display();
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+        q.display();
+        q.dequeue();
+        q.display();
+    }
+}
+
+    
+
+
+
+
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] dq = new int[nums.length];
+        int[] result = new int[nums.length - k +1];
+        int front = 0, rear = -1;
+        int c = -1;
+
+        for(int i=0;i<k;i++){
+            while(front <= rear && nums[i] >= nums[dq[rear]] )rear--;
+            dq[++rear] = i;
+        }
+
+        for(int i=k ; i < nums.length ; i++){
+            result[++c] = nums[dq[front]];
+            while(front <= rear && dq[front] <= i-k)front++;
+            while(front <= rear && nums[i] >= nums[dq[rear]] )rear--;
+            dq[++rear] = i;
+        }
+        result[++c] = nums[dq[front]];
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+class QueueUsingStack {
+
+    int[] s1, s2;
+    int t1, t2, n;
+
+    QueueUsingStack(int size) {
+        n = size;
+        s1 = new int[size];
+        s2 = new int[size];
+        t1 = -1;
+        t2 = -1;
+    }
+
+    public boolean isFull() {
+        return (t1 == n - 1);
+    }
+
+    public boolean isEmpty() {
+        return (t1 == -1 && t2 == -1);
+    }
+
+    // Move from s1 to s2 ONLY when s2 is empty
+    private void shiftStacks() {
+        if (t2 == -1) {
+            while (t1 != -1) {
+                s2[++t2] = s1[t1--];
+            }
+        }
+    }
+
+    public void enqueue(int val) {
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
+        }
+        s1[++t1] = val;
+    }
+
+    public void dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        shiftStacks();
+        t2--;  // pop from s2
+    }
+
+    public void front() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        shiftStacks();
+        System.out.println("Front: " + s2[t2]);
+    }
+
+    public static void main(String[] args) {
+        QueueUsingStack q = new QueueUsingStack(5);
+        q.enqueue(1);
+        q.enqueue(3);
+        q.dequeue();
+        q.front();
+    }
+}
+
+
+
+
+
+

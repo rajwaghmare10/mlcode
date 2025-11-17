@@ -1,0 +1,68 @@
+import java.util.*;
+
+class treenode{
+    char data;
+    treenode left,right;
+
+    treenode(char data){
+        this.data = data;
+        right = left = null;
+    }
+}
+
+public class tree{
+    public static void inorder(treenode root){
+        if(root == null)return;
+        inorder(root.left);
+        System.out.print(root.data+" ");
+        inorder(root.right);
+    }
+
+    public static void preorder(treenode root){
+        if(root == null)return;
+        System.out.print(root.data+" ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    public static void postorder(treenode root){
+        if(root == null)return;
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.data+" ");       
+    }
+
+    public static int height(treenode root){
+        if(root == null )return 0;
+        return 1 + Math.max(height(root.left) , height(root.right));
+    }
+
+    public static int leafnode(treenode root){
+        if(root == null)return 0;
+        if(root.left == null && root.right == null)return 1;
+        return leafnode(root.left) + leafnode(root.right);
+    }
+
+    public static int internalnode(treenode root){
+        if(root == null || (root.right == null && root.left == null))return 0;
+        return 1 + internalnode(root.left) + internalnode(root.right);
+    }
+
+    public static void main(String[] args) {
+
+        treenode root = new treenode('a');
+        root.right = new treenode('b');
+        root.right.right = new treenode('c');
+
+        inorder(root);
+        System.out.println();
+        postorder(root);
+        System.out.println();
+        preorder(root);
+        System.out.println();
+        System.out.println("height "+height(root));
+        System.out.println("leafnode "+leafnode(root));
+        System.out.println("internal node "+internalnode(root));
+
+    }
+}

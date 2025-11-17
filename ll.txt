@@ -1,0 +1,217 @@
+import java.util.*;
+
+class main{
+  public static void main(String[] args){
+    LinkedList ll = new LinkedList();
+    ll.pushfront(10);
+    ll.pushback(20);
+    ll.pushback(30);
+    ll.pushback(20);
+    ll.pushback(1);
+    ll.display();
+    if(ll.ispalin()){
+      System.out.println("it is");
+    }else{
+      System.out.println("it is not");
+    }
+  }
+}
+
+class Node{
+  int data;
+  Node next;
+  
+  Node(int data){
+    this.data = data;
+    this.next = null;
+  }
+}
+
+class LinkedList{
+  Node head;
+  Node tail;
+  
+  public void pushfront(int data){
+    Node newNode = new Node(data);
+    if(head == null){
+      head = newNode;
+      tail = newNode;
+      return;
+    }
+    newNode.next = head;
+    head = newNode;
+  }
+  
+  public void pushback(int data){
+    Node newNode = new Node(data);
+    if(head == null){
+      head = newNode;
+      tail = newNode;
+      return;
+    }
+    tail.next = newNode;
+    tail = newNode ;
+  }
+  
+  public void display(){
+    Node temp = head;
+    while(temp != null){
+      System.out.print(temp.data+" -> ");
+      temp = temp.next;
+    }
+    System.out.println("null");
+  }
+  
+  public void removedup(){
+    Node temp = head;
+    Node prev = null;
+    HashSet<Integer> set = new HashSet<>();
+    
+    while(temp != null){
+      if(set.contains(temp.data)){
+        prev.next = temp.next;
+        temp = temp.next;
+      }else{
+        set.add(temp.data);
+        prev = temp;
+        temp = temp.next;
+      }
+    }
+  }
+  
+  public void makecycle(int value){
+    Node temp = head;
+    Node join = null;
+    while(temp.next != null){
+      if(value == temp.data){
+        join = temp;
+      }
+      temp = temp.next;
+    }
+    if(join != null){
+      temp.next = join;
+    }
+  }
+  
+  public void detectnremovecycle(){
+    Node slow = head;
+    Node fast = head;
+    Boolean cycle = false;
+    
+    while(slow != null && fast != null){
+      slow = slow.next;
+      fast = fast.next.next;
+      
+      if(slow == fast){
+        cycle = true;
+        break;
+      }
+    }
+    
+    if(!cycle){
+      System.out.println("cycle not found");
+      return;
+    }
+    
+    slow = head;
+    Node prv = null;
+    while(slow != fast){
+      prv = fast;
+      slow = slow.next;
+      fast = fast.next;
+    }
+    
+    prv.next = null;
+    System.out.println("cycle removed");
+  }
+  
+  //reverse a linked list 
+  private Node reverse(Node head){
+    Node prev = null;
+    Node cur = head;
+    Node next = null;
+    
+    while(cur != null){
+      next = cur.next;
+      cur.next = prev;
+      prev = cur;
+      cur = next;
+    }
+    return prev;
+  }
+  
+  public boolean ispalin(){
+    if(head == null || head.next == null) return true;
+    
+    Node slow = head;
+    Node fast = head;
+    
+    while(fast.next != null && fast.next.next != null){
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    
+    Node secHalfNode = reverse(slow.next);
+    Node firstHalf = head;
+    Node secHalf = secHalfNode;
+    
+    while(secHalf != null){
+      if(secHalf.data != firstHalf.data){
+        return false;
+      }
+      firstHalf = firstHalf.next;
+      secHalf = secHalf.next;
+    }
+    slow.next = reverse(secHalfNode);
+    return true; 
+    
+  }
+}
+
+
+
+
+
+public Node reverseKGroup(Node head, int k) { 
+        if (head == null || k <= 1) return head; 
+ 
+        Node curr = head; 
+        Node prevTail = null; 
+        Node newHead = null; 
+ 
+        while (curr != null) { 
+            Node groupStart = curr; 
+ 
+            int count = 0; 
+            Node temp = curr; 
+            while (temp != null && count < k) { 
+                temp = temp.next; 
+                count++; 
+            } 
+ 
+            if (count < k) { 
+                if (prevTail != null) prevTail.next = curr; 
+                break; 
+            } 
+ 
+            Node prev = null; 
+            Node next = null; 
+            count = 0; 
+            while (curr != null && count < k) { 
+                next = curr.next; 
+                curr.next = prev; 
+                prev = curr; 
+                curr = next; 
+                count++; 
+            } 
+ 
+            if (newHead == null) 
+                newHead = prev; 
+ 
+            if (prevTail != null) 
+                prevTail.next = prev; 
+ 
+            prevTail = groupStart; 
+        } 
+        return newHead; 
+    } 

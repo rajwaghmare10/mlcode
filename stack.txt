@@ -1,0 +1,124 @@
+// checking balance 
+
+class FirstCode {
+
+    public static boolean isBoolean(String s){
+        char[] stack = new char[s.length()];
+        int top = -1;
+        for(int i=0 ; i<s.length() ; i++){
+            char temp = s.charAt(i);
+
+            if(temp == '{' || temp == '(' || temp == '[' ){
+                top++;
+                stack[top] = temp;
+                
+            }else if(temp == '}' || temp == ')' || temp == ']'){
+                if(top == -1){
+                    return false;
+                }
+                char te = stack[top];
+                top--;
+                if(temp == '(' && te != ')') return false;
+                if(temp == '[' && te != ']') return false;
+                if(temp == '{' && te != '}') return false;
+            }
+        }
+        return top == -1;
+    }
+    
+    public static void main(String[] args) {
+        String s =  "{[])}";
+        if(isBoolean(s)){
+            System.out.print("yes");
+        }else{
+            System.out.print("no");
+        }
+    }
+}
+
+
+
+
+// evaluate postfix expression
+
+class FirstCode {
+
+    public static int postfix(String s){
+        String[] token = s.split(" ");
+        int[] stack = new int[token.length];
+        int top = -1;
+        for (int i = 0; i < token.length; i++) {
+            String cur = token[i];
+
+            if(cur.charAt(0) >= '0' && cur.charAt(0) <= '9'){
+                top++;
+                stack[top] = Integer.parseInt(cur);
+            }
+            else{
+                int b = stack[top];
+                top--;
+                int a = stack[top];
+                top--;
+
+                int res = 0;
+
+                if(cur.equals("+")) res=a+b;
+                else if(cur.equals("-")) res=a-b;
+                else if(cur.equals("/")) res = a/b;
+                else if(cur.equals("*"))res = a*b;
+
+                top++;
+                stack[top] = res;
+
+            }
+        }
+        return stack[top];
+    }
+    
+    public static void main(String[] args) {
+        String s =  "100 20 5 / + 3 *";
+        System.out.println(postfix(s));
+    }
+}
+
+
+
+
+
+
+// next greater element 
+
+class FirstCode {
+
+    public static void nextGreater(int[] arr){
+        int[] result = new int[arr.length];
+        int[] stack = new int[arr.length];
+        int top = -1;
+        for (int idx = arr.length-1; idx >= 0 ; idx--) {
+
+            while(top != -1 && stack[top] <=  arr[idx]){
+                top--;
+            }
+
+            if(top == -1){
+                result[idx] = -1;
+            }else{
+                result[idx] = stack[top];
+            }
+            
+            top++;
+            stack[top] = arr[idx];
+        }
+
+        for(int i : result){
+            System.out.print(i+" ");
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] arr = {5,6,3,1,4};
+        nextGreater(arr);
+    }
+}
+
+
