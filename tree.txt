@@ -66,3 +66,129 @@ public class tree{
 
     }
 }
+
+
+
+
+
+import java.util.Stack;
+
+class ExprNode {
+    char data;
+    ExprNode left, right;
+    ExprNode(char data) { this.data = data; }
+}
+
+public class ExpressionTree {
+
+    static boolean isOperator(char c) {
+        return c == '+' || c == '-' || c == '*' || c == '/';
+    }
+
+    static ExprNode constructExpressionTree(String postfix) {
+        Stack<ExprNode> stack = new Stack<>();
+        for (char c : postfix.toCharArray()) {
+            if (!isOperator(c)) {
+                stack.push(new ExprNode(c));
+            } else {
+                ExprNode node = new ExprNode(c);
+                node.right = stack.pop();
+                node.left = stack.pop();
+                stack.push(node);
+            }
+        }
+        return stack.pop();
+    }
+
+    static void inorder(ExprNode root) {
+        if (root == null) return;
+        if (isOperator(root.data)) System.out.print("(");
+        inorder(root.left);
+        System.out.print(root.data);
+        inorder(root.right);
+        if (isOperator(root.data)) System.out.print(")");
+    }
+
+    static void preorder(ExprNode root) {
+        if (root == null) return;
+        System.out.print(root.data);
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    static void postorder(ExprNode root) {
+        if (root == null) return;
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.data);
+    }
+
+    public static void main(String[] args) {
+        String postfix = "AB+CD-*";
+        ExprNode root = constructExpressionTree(postfix);
+
+        System.out.print("Inorder: ");
+        inorder(root);
+        System.out.println();
+
+        System.out.print("Preorder: ");
+        preorder(root);
+        System.out.println();
+
+        System.out.print("Postorder: ");
+        postorder(root);
+        System.out.println();
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.*;
+
+class TreeNode {
+    int data;
+    TreeNode left, right;
+
+    TreeNode(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class Main {
+
+    // Level Order Traversal using Queue
+    public static void levelOrder(TreeNode root) {
+        if (root == null) return;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        System.out.print("Level Order Traversal: ");
+
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            System.out.print(node.data + " ");
+
+            if (node.left != null) q.add(node.left);
+            if (node.right != null) q.add(node.right);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.right = new TreeNode(6);
+
+        levelOrder(root);   // Output should be: 1 2 3 4 5 6
+    }
+}
