@@ -178,4 +178,78 @@ class QueueUsingStack {
 
 
 
+class RoundRobin { 
+    static void schedule(String[] jobs, int[] burst, int q) { 
+        int n = jobs.length; 
+        int[] rem = new int[n]; 
+        int[] finish = new int[n]; 
+        int time = 0, done = 0; 
+        for (int i = 0; i < n; i++) rem[i] = burst[i]; 
+        while (done < n) { 
+            for (int i = 0; i < n; i++) { 
+                if (rem[i] > 0) { 
+                    if (rem[i] > q) { 
+                        time += q; 
+                        rem[i] -= q; 
+                    } else { 
+                        time += rem[i]; 
+                        rem[i] = 0; 
+                        finish[i] = time; 
+                        done++; 
+                        System.out.print(jobs[i] + " "); 
+                    } 
+                } 
+            } 
+        } 
+    } 
+ 
+    public static void main(String[] args) { 
+        String[] jobs = {"J1", "J2", "J3"}; 
+        int[] burst = {5, 3, 7}; 
+        int q = 2; 
+        schedule(jobs, burst, q);
+
+
+
+
+
+
+class PrinterQueue { 
+    static int findOrder(int[] pri, int target) { 
+        int n = pri.length; 
+        int[] index = new int[n]; 
+        for (int i = 0; i < n; i++) index[i] = i; 
+        int count = 0; 
+        while (true) { 
+            int max = pri[0]; 
+            for (int i = 1; i < n; i++) if (pri[i] > max) max = pri[i]; 
+            if (pri[0] == max) { 
+                count++; 
+                if (index[0] == target) return count; 
+                for (int i = 0; i < n - 1; i++) { 
+                    pri[i] = pri[i + 1]; 
+                    index[i] = index[i + 1]; 
+                } 
+                n--; 
+            } else { 
+                int tempP = pri[0], tempI = index[0]; 
+                for (int i = 0; i < n - 1; i++) { 
+                    pri[i] = pri[i + 1]; 
+                    index[i] = index[i + 1]; 
+                } 
+                pri[n - 1] = tempP; 
+                index[n - 1] = tempI; 
+            } 
+        } 
+    } 
+ 
+    public static void main(String[] args) { 
+        int[] priorities = {1, 1, 9, 1, 1, 1}; 
+        int target = 0; 
+        System.out.println(findOrder(priorities, target)); 
+    } 
+} 
+
+
+
 
