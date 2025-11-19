@@ -30,6 +30,7 @@
             <td>
                 {{ student.marks >= 40 ? 'PASS' : 'FAIL' }}
             </td>
+
         </tr>
     </table>
 
@@ -118,10 +119,11 @@ angular.module('studentApp', [])
         <th>Email</th>
         <th>Course</th>
     </tr>
-    <tr ng-if="submitted">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.course }}</td>
+
+    <tr ng-repeat="u in users">
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.course }}</td>
     </tr>
 </table>
 
@@ -129,11 +131,24 @@ angular.module('studentApp', [])
 angular.module('myApp', [])
 .controller('FormController', function($scope) {
 
+    // object for form input
     $scope.user = {};
-    $scope.submitted = false;
+
+    // array to store all submitted users
+    $scope.users = [];
 
     $scope.submit = function() {
-        $scope.submitted = true;
+        // push the current user object into the array
+        $scope.users.push({
+            name: $scope.user.name,
+            email: $scope.user.email,
+            course: $scope.user.course
+        });
+
+        // clear form after submission
+        $scope.user = {};
+        $scope.userForm.$setPristine();
+        $scope.userForm.$setUntouched();
     };
 
 });
@@ -141,3 +156,4 @@ angular.module('myApp', [])
 
 </body>
 </html>
+

@@ -54,6 +54,7 @@ if (isset($_POST['submit'])) {
 
 //last pract 3 codes 3 different files
 
+//login.php
 <?php
 session_start();
 
@@ -83,7 +84,7 @@ $savedUser = isset($_COOKIE['username']) ? $_COOKIE['username'] : "";
 </html>
 
 
-
+//validate.php
 <?php
 session_start();
 
@@ -114,6 +115,7 @@ if ($user == $correctUser && $pass == $correctPass) {
 ?>
 
 
+//welcome.php
 <?php
 session_start();
 
@@ -138,3 +140,16 @@ if (!isset($_SESSION['username'])) {
 
 </body>
 </html>
+
+
+//logout.php
+
+<?php
+session_start();
+session_destroy();
+
+// Remove cookie
+setcookie("username", "", time() - 3600);
+
+echo "Logged out successfully! <a href='login.php'>Login again</a>";
+?>
