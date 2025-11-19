@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple PHP Array Example</title>
+</head>
+<body>
+
+<h2>Enter Your Details</h2>
+
+<form method="POST">
+    Name: <input type="text" name="name" required><br><br>
+    Email: <input type="email" name="email" required><br><br>
+    Age: <input type="number" name="age" required><br><br>
+    <input type="submit" name="submit" value="Submit">
+</form>
+
+<hr>
+
+<?php
+if (isset($_POST['submit'])) {
+
+    // Store data in array
+    $user = array(
+        "Name"  => $_POST['name'],
+        "Email" => $_POST['email'],
+        "Age"   => $_POST['age']
+    );
+
+    echo "<h3>Stored Data:</h3>";
+    echo "<pre>";
+    print_r($user);
+    echo "</pre>";
+
+    // Array keys
+    echo "Keys: ";
+    print_r(array_keys($user));
+    echo "<br><br>";
+
+    // Array values
+    echo "Values: ";
+    print_r(array_values($user));
+    echo "<br><br>";
+
+    // Count elements
+    echo "Total Elements: " . count($user);
+}
+?>
+
+</body>
+</html>
+
+
+
+
+//last pract 3 codes 3 different files
+
+<?php
+session_start();
+
+// If cookie exists, auto-fill username
+$savedUser = isset($_COOKIE['username']) ? $_COOKIE['username'] : "";
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Simple Login System</h2>
+
+<form action="validate.php" method="POST">
+    Username: <input type="text" name="username" value="<?php echo $savedUser; ?>" required><br><br>
+    Password: <input type="password" name="password" required><br><br>
+    <label>
+        <input type="checkbox" name="remember"> Remember Me
+    </label><br><br>
+    <input type="submit" value="Login">
+</form>
+
+</body>
+</html>
+
+
+
+<?php
+session_start();
+
+// Hardcoded credentials
+$correctUser = "admin";
+$correctPass = "12345";
+
+// Get input
+$user = $_POST['username'];
+$pass = $_POST['password'];
+
+// Verify login
+if ($user == $correctUser && $pass == $correctPass) {
+
+    // Create session
+    $_SESSION['username'] = $user;
+
+    // Set cookie for 1 day if "Remember Me" checked
+    if (isset($_POST['remember'])) {
+        setcookie("username", $user, time() + 86400); // 24 hours
+    }
+
+    header("Location: welcome.php");
+} else {
+    echo "<h3>Invalid Login! Try again.</h3>";
+    echo "<a href='login.php'>Go Back</a>";
+}
+?>
+
+
+<?php
+session_start();
+
+// Stop direct access
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+
+<h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
+<p>You have successfully logged in.</p>
+
+<a href="logout.php">Logout</a>
+
+</body>
+</html>

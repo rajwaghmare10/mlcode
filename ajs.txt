@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AngularJS Student List</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="studentApp">
+
+<h2>Student Marks List</h2>
+
+<div ng-controller="StudentController">
+
+    <label>Filter by Name:</label>
+    <input type="text" ng-model="searchName" placeholder="Search">
+
+    <br><br>
+
+    <table border="1" cellpadding="6">
+        <tr>
+            <th><a href="" ng-click="sortType='name'; sortReverse=!sortReverse">Name</a></th>
+            <th><a href="" ng-click="sortType='marks'; sortReverse=!sortReverse">Marks</a></th>
+            <th>Result</th>
+        </tr>
+
+        <tr ng-repeat="student in students | filter:searchName | orderBy:sortType:sortReverse">
+            <td>{{ student.name }}</td>
+            <td>{{ student.marks }}</td>
+            <td>
+                {{ student.marks >= 40 ? 'PASS' : 'FAIL' }}
+            </td>
+        </tr>
+    </table>
+
+    <p>Total Students: {{ students.length }}</p>
+
+</div>
+
+<script>
+angular.module('studentApp', [])
+.controller('StudentController', function($scope) {
+    $scope.students = [
+        { name: 'Alice', marks: 85 },
+        { name: 'Bob', marks: 39 },
+        { name: 'Charlie', marks: 62 },
+        { name: 'Diana', marks: 91 },
+        { name: 'Eve', marks: 35 }
+    ];
+
+    $scope.sortType = 'name';
+    $scope.sortReverse = false;
+    $scope.searchName = '';
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>AngularJS Form</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="FormController">
+
+<h2>User Details Form</h2>
+
+<form name="userForm">
+
+    <label>Name:</label><br>
+    <input type="text" ng-model="user.name" name="name" required>
+    <span ng-show="userForm.name.$touched && userForm.name.$invalid">
+        Name is required
+    </span>
+
+    <br><br>
+
+    <label>Email:</label><br>
+    <input type="email" ng-model="user.email" name="email" required>
+    <span ng-show="userForm.email.$touched && userForm.email.$invalid">
+        Enter a valid email
+    </span>
+
+    <br><br>
+
+    <label>Course:</label><br>
+    <input type="text" ng-model="user.course" name="course" required>
+    <span ng-show="userForm.course.$touched && userForm.course.$invalid">
+        Course is required
+    </span>
+
+    <br><br>
+
+    <button type="button" ng-click="submit()" 
+            ng-disabled="userForm.$invalid">
+        Submit
+    </button>
+
+</form>
+
+<br><br>
+
+<h3>Entered Details:</h3>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+    </tr>
+    <tr ng-if="submitted">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.course }}</td>
+    </tr>
+</table>
+
+<script>
+angular.module('myApp', [])
+.controller('FormController', function($scope) {
+
+    $scope.user = {};
+    $scope.submitted = false;
+
+    $scope.submit = function() {
+        $scope.submitted = true;
+    };
+
+});
+</script>
+
+</body>
+</html>

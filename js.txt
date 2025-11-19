@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Input Validation</title>
+</head>
+<body>
+<h2>Enter Your Details</h2>
+<script>
+let name = "";
+let age = 0;
+// Loop until valid name is entered
+while (true) {
+name = prompt("Enter your name:");
+if (name !== null && name.trim() !== "") {
+break; // valid name
+} else {
+alert("Name cannot be empty. Please enter again.");
+}
+}
+// Loop until valid age is entered
+while (true) {
+let input = prompt("Enter your age:");
+age = parseInt(input);
+if (!isNaN(age) && age > 0) {
+break; // valid age
+} else {
+alert("Please enter a valid positive number for age.");
+}
+}
+// Conditional greeting message
+if (age < 18) {
+document.write("<h3>Hello " + name + "! You are a minor (Age: " + age + ").</h3>");
+} else if (age >= 18 && age < 60) {
+document.write("<h3>Welcome " + name + "! You are an adult (Age: " + age + ").</h3>");
+} else {
+document.write("<h3>Greetings " + name + "! You are a senior citizen (Age: " + age +
+").</h3>");
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Example</title>
+
+    <script>
+        // Function to show current date and time
+        function showDateTime() {
+            let now = new Date();
+            document.getElementById("datetime").innerHTML = 
+                "Current Date & Time: " + now.toString();
+        }
+
+        // Function to validate form
+        function validateForm() {
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let msg = "";
+
+            // String manipulation - convert name to uppercase
+            let upperName = name.toUpperCase();
+            document.getElementById("name").value = upperName;
+
+            if (name === "") {
+                msg += "Name cannot be empty.\n";
+            }
+
+            // Email must contain @ and .
+            if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+                msg += "Invalid email address.\n";
+            }
+
+            if (msg !== "") {
+                alert(msg);
+                return false; // Stop submission
+            }
+
+            alert("Form submitted successfully!");
+            return true;
+        }
+
+        // Event handler to auto-capitalize name on blur (focus out)
+        function autoUppercase() {
+            let name = document.getElementById("name").value;
+            document.getElementById("name").value = name.toUpperCase();
+        }
+    </script>
+</head>
+
+<body onload="showDateTime()">
+
+    <h2>Simple Form Validation</h2>
+
+    <div id="datetime"></div>
+    <br>
+
+    <form onsubmit="return validateForm()">
+
+        Name: <br>
+        <input type="text" id="name" onblur="autoUppercase()"><br><br>
+
+        Email: <br>
+        <input type="text" id="email"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

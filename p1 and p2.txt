@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        img {
+            width: 150px;
+            border-radius: 10px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 250px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 7px 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Personal Portfolio</h1>
+    <p>Hello! My name is <b>Your Name</b>. This is my simple portfolio webpage created using HTML and CSS.</p>
+
+    <h2>About Me</h2>
+    <p>I am a student who loves web development, coding, and learning new technologies.</p>
+
+    <h2>My Skills</h2>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+
+    <h2>My Projects</h2>
+    <table>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Portfolio Website</td>
+            <td>A simple personal webpage.</td>
+        </tr>
+        <tr>
+            <td>Calculator</td>
+            <td>Basic calculator using JS.</td>
+        </tr>
+    </table>
+
+    <h2>My Photo</h2>
+    <img src="https://via.placeholder.com/150" alt="My Photo">
+
+    <h2>Useful Link</h2>
+    <p>Visit my GitHub: 
+        <a href="https://github.com" target="_blank">Click Here</a>
+    </p>
+
+    <h2>Contact Me</h2>
+    <form>
+        <label>Your Name:</label><br>
+        <input type="text" required><br>
+
+        <label>Your Email:</label><br>
+        <input type="email" required><br>
+
+        <label>Message:</label><br>
+        <textarea rows="4"></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
+
+
+
+
+// practical 2
+
+body {
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+    background: #f2f2f2;
+}
+
+header {
+    background: #003366;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav {
+    background: #004080;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    padding: 20px;
+}
+
+footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Department - Home</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Internal CSS -->
+    <style>
+        h2 {
+            color: #003366;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Computer Science Department</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Welcome to Our Department</h2>
+    <p>This website gives basic information about the Computer Science Department.</p>
+
+    <h3>Courses Offered</h3>
+    <ul>
+        <li>B.Sc Computer Science</li>
+        <li>BCA</li>
+        <li>M.Sc Computer Science</li>
+        <li>MCA</li>
+    </ul>
+</div>
+
+<footer>
+    © 2025 Computer Science Department
+</footer>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Department - About</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>About the Department</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Our Vision</h2>
+    <p>To produce skilled and knowledgeable professionals in the field of computer science.</p>
+
+    <h2>Faculty Members</h2>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Name</th>
+            <th>Qualification</th>
+        </tr>
+        <tr>
+            <td>Dr. A. Sharma</td>
+            <td>Ph.D Computer Science</td>
+        </tr>
+        <tr>
+            <td>Ms. R. Patil</td>
+            <td>M.Tech Computer Engineering</td>
+        </tr>
+    </table>
+</div>
+
+<footer>
+    © 2025 Computer Science Department
+</footer>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Department - Contact</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 250px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Contact Us</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Send a Message</h2>
+
+    <form>
+        <label>Name:</label><br>
+        <input type="text" required><br>
+
+        <label>Email:</label><br>
+        <input type="email" required><br>
+
+        <label>Message:</label><br>
+        <textarea rows="4"></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
+
+<footer>
+    © 2025 Computer Science Department
+</footer>
+
+</body>
+</html>
